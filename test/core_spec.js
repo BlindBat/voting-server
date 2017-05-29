@@ -64,6 +64,22 @@ describe('логика приложения', () => {
                 entries: List.of('127 Hours', 'Trainspotting', '28 Days Later')
             }));
         });
+        it('когда остается лишь одна запись, помечает ее как победителя', () => {
+            const  state = Map({
+                vote: Map({
+                    pair: List.of('Trainspotting', '28 Days Later'),
+                    tally: Map({
+                        'Trainspotting': 4,
+                        '28 Days Later': 2
+                    })
+                }),
+                entries: List()
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(Map({
+                winner: 'Trainspotting'
+            }));
+        });
     });
     describe('vote', () => {
         it('создает результат голосования для выбранной записи', () => {
